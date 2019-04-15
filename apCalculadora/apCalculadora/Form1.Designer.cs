@@ -70,10 +70,9 @@
             this.txtVisor.Font = new System.Drawing.Font("Courier New", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVisor.Location = new System.Drawing.Point(11, 14);
             this.txtVisor.MaxLength = 200;
-            this.txtVisor.Multiline = true;
             this.txtVisor.Name = "txtVisor";
             this.txtVisor.ReadOnly = true;
-            this.txtVisor.Size = new System.Drawing.Size(359, 29);
+            this.txtVisor.Size = new System.Drawing.Size(359, 31);
             this.txtVisor.TabIndex = 0;
             this.txtVisor.Text = "0";
             this.txtVisor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
