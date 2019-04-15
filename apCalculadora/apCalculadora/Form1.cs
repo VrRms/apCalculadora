@@ -12,6 +12,8 @@ namespace apCalculadora
 {
     public partial class frmCalculadora : Form
     {
+        public static readonly char[] sinais = { '(', '^', '*', '/', '+', '-', ')' };
+
         public frmCalculadora()
         {
             InitializeComponent();
@@ -191,6 +193,17 @@ namespace apCalculadora
             { }
         }
 
+        private void btnRaiz_Click(object sender, EventArgs e)
+        {
+            if (txtVisor.Text.EndsWith(")"))
+                txtVisor.Text += "√";
+            else
+            {
+                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
+                    txtVisor.Text += "√";
+            }
+        }
+
         private void btnPonto_Click(object sender, EventArgs e)
         {
             if (txtVisor.Text.EndsWith(")") == false && txtVisor.Text.EndsWith(".") == false)
@@ -252,6 +265,16 @@ namespace apCalculadora
                 if(txtVisor.Text.Length == 0)
                     txtVisor.Text = Convert.ToString(0);
             }
+        }
+
+        //////////////////////////////////////////////////////////////
+        private static bool IsOperador(char c)
+        {
+            foreach (char sinal in sinais)
+                if (c == sinal)
+                    return true;
+
+            return false;
         }
     }
 }

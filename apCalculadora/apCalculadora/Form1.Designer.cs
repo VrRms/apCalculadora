@@ -603,6 +603,7 @@
             this.btnRaiz.Size = new System.Drawing.Size(60, 56);
             this.btnRaiz.TabIndex = 58;
             this.btnRaiz.UseVisualStyleBackColor = false;
+            this.btnRaiz.Click += new System.EventHandler(this.btnRaiz_Click);
             // 
             // btnApagarUm
             // 
