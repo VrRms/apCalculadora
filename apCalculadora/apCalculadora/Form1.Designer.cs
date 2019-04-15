@@ -70,10 +70,10 @@
             this.txtVisor.Font = new System.Drawing.Font("Courier New", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVisor.Location = new System.Drawing.Point(11, 14);
             this.txtVisor.MaxLength = 200;
+            this.txtVisor.Multiline = true;
             this.txtVisor.Name = "txtVisor";
             this.txtVisor.ReadOnly = true;
-            this.txtVisor.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtVisor.Size = new System.Drawing.Size(359, 31);
+            this.txtVisor.Size = new System.Drawing.Size(359, 29);
             this.txtVisor.TabIndex = 0;
             this.txtVisor.Text = "0";
             this.txtVisor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -131,9 +131,9 @@
             this.btnClear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnClear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(90, 274);
+            this.btnClear.Location = new System.Drawing.Point(229, 274);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(60, 56);
             this.btnClear.TabIndex = 37;
@@ -156,11 +156,10 @@
             this.btnIgual.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIgual.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIgual.ForeColor = System.Drawing.Color.White;
-            this.btnIgual.Location = new System.Drawing.Point(160, 274);
+            this.btnIgual.Location = new System.Drawing.Point(297, 213);
             this.btnIgual.Name = "btnIgual";
-            this.btnIgual.Size = new System.Drawing.Size(60, 56);
+            this.btnIgual.Size = new System.Drawing.Size(60, 144);
             this.btnIgual.TabIndex = 38;
-            this.btnIgual.Text = "=";
             this.btnIgual.UseVisualStyleBackColor = false;
             // 
             // btnZero
@@ -178,7 +177,7 @@
             this.btnZero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnZero.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnZero.ForeColor = System.Drawing.Color.White;
-            this.btnZero.Location = new System.Drawing.Point(20, 274);
+            this.btnZero.Location = new System.Drawing.Point(90, 274);
             this.btnZero.Name = "btnZero";
             this.btnZero.Size = new System.Drawing.Size(60, 56);
             this.btnZero.TabIndex = 39;
@@ -291,7 +290,7 @@
             this.btnDivisao.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnDivisao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnDivisao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDivisao.Font = new System.Drawing.Font("Righteous", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDivisao.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDivisao.ForeColor = System.Drawing.Color.White;
             this.btnDivisao.Location = new System.Drawing.Point(229, 30);
             this.btnDivisao.Name = "btnDivisao";
@@ -371,7 +370,6 @@
             // 
             // btnMult
             // 
-            this.btnMult.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.btnMult.BackColor = System.Drawing.Color.Transparent;
             this.btnMult.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnMult.BackgroundImage")));
             this.btnMult.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -519,7 +517,7 @@
             this.btnPonto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPonto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPonto.ForeColor = System.Drawing.Color.White;
-            this.btnPonto.Location = new System.Drawing.Point(229, 274);
+            this.btnPonto.Location = new System.Drawing.Point(298, 151);
             this.btnPonto.Name = "btnPonto";
             this.btnPonto.Size = new System.Drawing.Size(60, 56);
             this.btnPonto.TabIndex = 53;
@@ -632,8 +630,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(172)))), ((int)(((byte)(198)))));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Location = new System.Drawing.Point(373, 7);
+            this.pictureBox1.Location = new System.Drawing.Point(373, 8);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(22, 350);
             this.pictureBox1.TabIndex = 56;
@@ -657,7 +654,7 @@
             // 
             this.lbSequencias.AutoSize = true;
             this.lbSequencias.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSequencias.Location = new System.Drawing.Point(5, 89);
+            this.lbSequencias.Location = new System.Drawing.Point(8, 92);
             this.lbSequencias.Name = "lbSequencias";
             this.lbSequencias.Size = new System.Drawing.Size(78, 18);
             this.lbSequencias.TabIndex = 2;
@@ -672,8 +669,9 @@
             this.ClientSize = new System.Drawing.Size(405, 479);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "frmCalculadora";
             this.Text = "Calculadora";
             this.groupBox2.ResumeLayout(false);
@@ -709,11 +707,11 @@
         private System.Windows.Forms.Button btnPonto;
         private System.Windows.Forms.Button btnFechaParent;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lbSequencias;
         private System.Windows.Forms.Button btnApagarUm;
         private System.Windows.Forms.Button btnRaiz;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

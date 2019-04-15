@@ -103,49 +103,144 @@ namespace apCalculadora
 
         private void btnPotencia_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text != "0")
-                txtVisor.Text = txtVisor.Text + "^";
+            try
+            {
+                if (txtVisor.Text.EndsWith(")"))
+                    txtVisor.Text += "^";
+                else
+                {
+                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
+
+                    if (txtVisor.Text != "0")
+                        txtVisor.Text += "^";
+                }
+            }
+            catch (Exception erro)
+            { }
         }
 
         private void btnDivisao_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text != "0")
-                txtVisor.Text = txtVisor.Text + "/";
+            try
+            {
+                if (txtVisor.Text.EndsWith(")"))
+                    txtVisor.Text += "/";
+                else
+                {
+                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
+
+                    if (txtVisor.Text != "0")
+                        txtVisor.Text += "/";
+                }
+            }
+            catch (Exception erro)
+            { }
         }
 
         private void btnMult_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text != "0")
-                txtVisor.Text = txtVisor.Text + "*";
+            try
+            {
+                if (txtVisor.Text.EndsWith(")"))
+                    txtVisor.Text += "*";
+                else
+                {
+                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
+
+                    if (txtVisor.Text != "0")
+                        txtVisor.Text += "*";
+                }
+            }
+            catch (Exception erro)
+            { }
         }
 
         private void btnSubtracao_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text != "0")
-                txtVisor.Text = txtVisor.Text + "-";
+            try
+            {
+                if (txtVisor.Text.EndsWith(")"))
+                    txtVisor.Text += "-";
+                else
+                {
+                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
+
+                    if (txtVisor.Text != "0")
+                        txtVisor.Text += "-";
+                }
+            }
+            catch (Exception erro)
+            { }
         }
 
         private void btnSoma_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text != "0")
-                txtVisor.Text = txtVisor.Text + "+";
+            try
+            {
+                if (txtVisor.Text.EndsWith(")"))
+                    txtVisor.Text += "+";
+                else
+                {
+                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
+
+                    if (txtVisor.Text != "0")
+                        txtVisor.Text += "+";
+                }
+            }
+            catch (Exception erro)
+            { }
         }
 
         private void btnPonto_Click(object sender, EventArgs e)
         {
-            txtVisor.Text = txtVisor.Text + ".";
+            if (txtVisor.Text.EndsWith(")") == false && txtVisor.Text.EndsWith(".") == false)
+            {
+                try
+                {
+                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
+
+                    txtVisor.Text += ".";
+                }
+                catch (Exception erro)
+                {
+                    txtVisor.Text = txtVisor.Text + "0.";
+                }
+            }
         }
 
         private void btnFechaParent_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text != "0")
-                txtVisor.Text = txtVisor.Text + ")";
+            try
+            {
+                if (txtVisor.Text.EndsWith(")"))
+                    txtVisor.Text += ")";
+                else
+                {
+                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
+
+                    if (txtVisor.Text != "0")
+                        txtVisor.Text += ")";
+                }
+            }
+            catch (Exception erro)
+            { }
         }
 
         private void btnAbreParent_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text != "0")
-                txtVisor.Text = txtVisor.Text + "(";
+            if(txtVisor.Text == "0")
+                txtVisor.Text = Convert.ToString("(");
+            else
+            {
+                try
+                {
+                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
+                }
+                catch (Exception erro)
+                {
+                    txtVisor.Text += "(";
+                }
+            }
         }
 
         private void btnApagarUm_Click(object sender, EventArgs e)
@@ -157,7 +252,6 @@ namespace apCalculadora
                 if(txtVisor.Text.Length == 0)
                     txtVisor.Text = Convert.ToString(0);
             }
-                
         }
     }
 }
