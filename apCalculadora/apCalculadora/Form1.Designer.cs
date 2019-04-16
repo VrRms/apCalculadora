@@ -68,11 +68,11 @@
             this.txtVisor.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtVisor.Enabled = false;
             this.txtVisor.Font = new System.Drawing.Font("Courier New", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVisor.Location = new System.Drawing.Point(11, 14);
-            this.txtVisor.MaxLength = 200;
+            this.txtVisor.Location = new System.Drawing.Point(8, 9);
+            this.txtVisor.MaxLength = 20;
             this.txtVisor.Name = "txtVisor";
             this.txtVisor.ReadOnly = true;
-            this.txtVisor.Size = new System.Drawing.Size(359, 31);
+            this.txtVisor.Size = new System.Drawing.Size(376, 31);
             this.txtVisor.TabIndex = 0;
             this.txtVisor.Text = "0";
             this.txtVisor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -85,12 +85,12 @@
             this.txtResultado.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.txtResultado.Enabled = false;
             this.txtResultado.Font = new System.Drawing.Font("Courier New", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResultado.Location = new System.Drawing.Point(11, 49);
+            this.txtResultado.Location = new System.Drawing.Point(8, 44);
             this.txtResultado.MaxLength = 18;
             this.txtResultado.Name = "txtResultado";
             this.txtResultado.ReadOnly = true;
             this.txtResultado.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtResultado.Size = new System.Drawing.Size(359, 31);
+            this.txtResultado.Size = new System.Drawing.Size(376, 31);
             this.txtResultado.TabIndex = 1;
             this.txtResultado.TabStop = false;
             // 
@@ -160,6 +160,7 @@
             this.btnIgual.Size = new System.Drawing.Size(60, 144);
             this.btnIgual.TabIndex = 38;
             this.btnIgual.UseVisualStyleBackColor = false;
+            this.btnIgual.Click += new System.EventHandler(this.btnIgual_Click);
             // 
             // btnZero
             // 
@@ -645,20 +646,20 @@
             this.panel1.Controls.Add(this.lbSequencias);
             this.panel1.Controls.Add(this.txtResultado);
             this.panel1.Controls.Add(this.txtVisor);
-            this.panel1.Location = new System.Drawing.Point(12, 4);
+            this.panel1.Location = new System.Drawing.Point(6, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(381, 121);
+            this.panel1.Size = new System.Drawing.Size(391, 121);
             this.panel1.TabIndex = 58;
             // 
             // lbSequencias
             // 
             this.lbSequencias.AutoSize = true;
             this.lbSequencias.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSequencias.Location = new System.Drawing.Point(8, 92);
+            this.lbSequencias.Location = new System.Drawing.Point(5, 82);
             this.lbSequencias.Name = "lbSequencias";
-            this.lbSequencias.Size = new System.Drawing.Size(78, 18);
+            this.lbSequencias.Size = new System.Drawing.Size(88, 36);
             this.lbSequencias.TabIndex = 2;
-            this.lbSequencias.Text = "Pósfixa";
+            this.lbSequencias.Text = "Posfixa:\r\nInfixa :";
             // 
             // frmCalculadora
             // 
