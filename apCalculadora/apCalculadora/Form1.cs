@@ -6,98 +6,20 @@ namespace apCalculadora
     public partial class frmCalculadora : Form
     {
         public static readonly char[] sinais = { '(', '√', '^', '*', '/', '+', '-', ')' };
+        public static readonly char[] letras = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
         public frmCalculadora()
         {
             InitializeComponent();
         }
 
-        // BOTÃO "1"
-        private void btnUm_Click(object sender, EventArgs e)
+        // BOTÕES NUMÉRICOS
+        private void btnNumerico_Click(object sender, EventArgs e)
         {
             if (txtVisor.Text == "0")
-                txtVisor.Text = Convert.ToString(1);
+                txtVisor.Text = Convert.ToString(((Button)sender).Text);
             else
-                txtVisor.Text += 1;
-        }
-
-        // BOTÃO "2"
-        private void btnDois_Click(object sender, EventArgs e)
-        {
-            if (txtVisor.Text == "0")
-                txtVisor.Text = Convert.ToString(2);
-            else
-                txtVisor.Text += 2;
-        }
-
-        // BOTÃO "3"
-        private void btnTres_Click(object sender, EventArgs e)
-        {
-            if (txtVisor.Text == "0")
-                txtVisor.Text = Convert.ToString(3);
-            else
-                txtVisor.Text += 3;
-        }
-
-        // BOTÃO "4"
-        private void btnQuatro_Click(object sender, EventArgs e)
-        {
-            if (txtVisor.Text == "0")
-                txtVisor.Text = Convert.ToString(4);
-            else
-                txtVisor.Text += 4;
-        }
-
-        // BOTÃO "5"
-        private void btnCinco_Click(object sender, EventArgs e)
-        {
-            if (txtVisor.Text == "0")
-                txtVisor.Text = Convert.ToString(5);
-            else
-                txtVisor.Text += 5;
-        }
-
-        // BOTÃO "6"
-        private void btnSeis_Click(object sender, EventArgs e)
-        {
-            if (txtVisor.Text == "0")
-                txtVisor.Text = Convert.ToString(6);
-            else
-                txtVisor.Text += 6;
-        }
-
-        // BOTÃO "7"
-        private void btnSete_Click(object sender, EventArgs e)
-        {
-            if (txtVisor.Text == "0")
-                txtVisor.Text = Convert.ToString(7);
-            else
-                txtVisor.Text += 7;
-        }
-
-        // BOTÃO "8"
-        private void btnOito_Click(object sender, EventArgs e)
-        {
-            if (txtVisor.Text == "0")
-                txtVisor.Text = Convert.ToString(8);
-            else
-                txtVisor.Text += 8;
-        }
-
-        // BOTÃO "9"
-        private void btnNove_Click(object sender, EventArgs e)
-        {
-            if (txtVisor.Text == "0")
-                txtVisor.Text = Convert.ToString(9);
-            else
-                txtVisor.Text += 9;
-        }
-
-        // BOTÃO "0"
-        private void btnZero_Click(object sender, EventArgs e)
-        {
-            if (txtVisor.Text != "0")
-                txtVisor.Text += 0;
+                txtVisor.Text += ((Button)sender).Text;
         }
 
         // BOTÃO "C"
@@ -295,13 +217,13 @@ namespace apCalculadora
             if (txtVisor.Text != "0")
             {
                 string expressao = txtVisor.Text;
-                double[] vetValores = new double[20];
+                double[] vetValores = new double[26];
                 string[] a = expressao.Split(sinais);
                 for(int i = 0; i < vetValores.Length && i < a.Length; i++)
                 {
                     vetValores[i] = double.Parse(a[i]);
                 }
-                txtResultado.Text = vetValores[1] + "";
+                txtResultado.Text = vetValores[2] + "";
                 string expressaoPposfixa = ConverterParaPosfixa(expressao);
             }
         }
