@@ -66,7 +66,6 @@
             // 
             this.txtVisor.BackColor = System.Drawing.SystemColors.Control;
             this.txtVisor.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtVisor.Enabled = false;
             this.txtVisor.Font = new System.Drawing.Font("Courier New", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVisor.Location = new System.Drawing.Point(8, 9);
             this.txtVisor.MaxLength = 20;
@@ -657,9 +656,9 @@
             this.lbSequencias.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbSequencias.Location = new System.Drawing.Point(5, 82);
             this.lbSequencias.Name = "lbSequencias";
-            this.lbSequencias.Size = new System.Drawing.Size(88, 36);
+            this.lbSequencias.Size = new System.Drawing.Size(98, 36);
             this.lbSequencias.TabIndex = 2;
-            this.lbSequencias.Text = "Posfixa:\r\nInfixa :";
+            this.lbSequencias.Text = "Posfixa:\r\nInfixa : ";
             // 
             // frmCalculadora
             // 

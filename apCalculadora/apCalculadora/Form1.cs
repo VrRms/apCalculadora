@@ -5,8 +5,9 @@ namespace apCalculadora
 {
     public partial class frmCalculadora : Form
     {
-        public static readonly char[] sinais = { '(', '√', '^', '*', '/', '+', '-', ')' };
-        public static readonly char[] letras = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+        public static readonly char[] sinais = { '(', '√', '^', '*', '/', '+', '-', ')' }; // lista de todos os operadores
+        public static readonly char[] numeros = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',' }; // lista dos números e a vírgula para números decimais
+        public static readonly char[] letras = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }; // lista de letras
 
         public frmCalculadora()
         {
@@ -217,14 +218,43 @@ namespace apCalculadora
             if (txtVisor.Text != "0")
             {
                 string expressao = txtVisor.Text;
+
+                // ADICIONA OS VALORES NUMÉRIOCOS A UM VETOR
                 double[] vetValores = new double[26];
                 string[] a = expressao.Split(sinais);
-                for(int i = 0; i < vetValores.Length && i < a.Length; i++)
+
+                for (int i = 0, j = 0; i < a.Length; i++, j++)
                 {
-                    vetValores[i] = double.Parse(a[i]);
+                    if (a[j] == "")
+                        j++;
+                    else
+                        vetValores[i] = double.Parse(a[j]);
                 }
-                txtResultado.Text = vetValores[2] + "";
-                string expressaoPposfixa = ConverterParaPosfixa(expressao);
+
+                // TRANSFORMA OS VALORES PARA LETRAS
+                string expLetras = "";
+                for (int i = 0, j = 0; j < expressao.Length; i++)
+                {
+                    while (IsNumero(Convert.ToChar(expressao.Substring(j,1))))
+                    {
+                        j++;
+                        if (j == expressao.Length)
+                            break;
+                    }
+                    expLetras += letras[i];
+                    if (j != expressao.Length)
+                        while (IsOperador(Convert.ToChar(expressao.Substring(j, 1))))
+                        {
+                            expLetras += expressao.Substring(j, 1);
+                            j++;
+
+                            if (j == expressao.Length)
+                                break;
+                        }
+                }
+                lbSequencias.Text = "Posfixa: \nInfixa : " + expLetras;
+
+                string expressaoPosfixa = "";
             }
         }
 
@@ -233,6 +263,15 @@ namespace apCalculadora
         {
             foreach (char sinal in sinais)
                 if (c == sinal)
+                    return true;
+
+            return false;
+        }
+
+        private static bool IsNumero(char n)
+        {
+            foreach (char numero in numeros)
+                if (n == numero)
                     return true;
 
             return false;
