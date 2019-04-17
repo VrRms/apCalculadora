@@ -225,23 +225,34 @@ namespace apCalculadora
 
                 for (int i = 0, j = 0; i < a.Length; i++, j++)
                 {
-                    if (a[j] == "")
-                        j++;
+                    if(j < a.Length)
+                        if (a[j] == "")
+                            j++;
                     else
                         vetValores[i] = double.Parse(a[j]);
                 }
 
                 // TRANSFORMA OS VALORES PARA LETRAS
                 string expLetras = "";
-                for (int i = 0, j = 0; j < expressao.Length; i++)
+                for (int i = 0, j = 0; j < expressao.Length;)
                 {
                     while (IsNumero(Convert.ToChar(expressao.Substring(j,1))))
                     {
-                        j++;
-                        if (j == expressao.Length)
+                        
+                        expLetras += letras[i];
+                        if (j + 1 == expressao.Length)
+                        {
+                            j++;
                             break;
+                        }
+                        else
+                        {
+                            j++;
+                            i++;
+                        }
+                        
                     }
-                    expLetras += letras[i];
+
                     if (j != expressao.Length)
                         while (IsOperador(Convert.ToChar(expressao.Substring(j, 1))))
                         {
