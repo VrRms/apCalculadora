@@ -249,7 +249,6 @@ namespace apCalculadora
                             j++;
                             break;
                         }
-
                         j++;
                     }
 
@@ -266,11 +265,8 @@ namespace apCalculadora
                                 expLetras += expressao.Substring(j, 1);        
                             }
                             else
-                            {
                                 expLetras += expressao.Substring(j, 1);
                                 
-                            }
-
                             j++;
 
                             if (j == expressao.Length)
