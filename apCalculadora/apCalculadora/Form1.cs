@@ -219,7 +219,7 @@ namespace apCalculadora
             {
                 string expressao = txtVisor.Text;
 
-                // ADICIONA OS VALORES NUMÉRIOCOS A UM VETOR
+                // ADICIONA OS VALORES NUMÉRICOS A UM VETOR
                 double[] vetValores = new double[26];
                 string[] a = expressao.Split(sinais);
 
@@ -234,29 +234,43 @@ namespace apCalculadora
 
                 // TRANSFORMA OS VALORES PARA LETRAS
                 string expLetras = "";
-                for (int i = 0, j = 0; j < expressao.Length;)
+                for (int i = 0, j = 0; j <= expressao.Length;)
                 {
+                    if (j == expressao.Length)
+                    {
+                        expLetras += letras[i];
+                        break;
+                    }
+
                     while (IsNumero(Convert.ToChar(expressao.Substring(j,1))))
                     {
-                        
-                        expLetras += letras[i];
                         if (j + 1 == expressao.Length)
                         {
                             j++;
                             break;
                         }
-                        else
-                        {
-                            j++;
-                            i++;
-                        }
-                        
+
+                        j++;
                     }
 
                     if (j != expressao.Length)
                         while (IsOperador(Convert.ToChar(expressao.Substring(j, 1))))
                         {
-                            expLetras += expressao.Substring(j, 1);
+                            if (Convert.ToChar(expressao.Substring(j, 1)) != '(')
+                            {
+                                if (Convert.ToChar(expressao.Substring(j - 1, 1)) != ')' && Convert.ToChar(expressao.Substring(j, 1)) != '√')
+                                {
+                                    expLetras += letras[i];
+                                    i++;
+                                }
+                                expLetras += expressao.Substring(j, 1);        
+                            }
+                            else
+                            {
+                                expLetras += expressao.Substring(j, 1);
+                                
+                            }
+
                             j++;
 
                             if (j == expressao.Length)
@@ -272,7 +286,7 @@ namespace apCalculadora
         //////////////////// MÉTODOS PARA RESOLVER A EXPRESSÃO ///////////////////////
         private static bool IsOperador(char c)
         {
-            foreach (char sinal in sinais)
+             foreach (char sinal in sinais)
                 if (c == sinal)
                     return true;
 
