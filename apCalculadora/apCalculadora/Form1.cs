@@ -273,17 +273,51 @@ namespace apCalculadora
                                 break;
                         }
                 }
-                lbSequencias.Text = "Posfixa: \nInfixa : " + expLetras;
+
+                ////////////////// INFIXA PARA PÓS-FIXA //////////////////////////////////////////////////////////
+
+                PilhaLista<char> pilha = new PilhaLista<char>();
 
                 string expressaoPosfixa = "";
+                for (int j = 0; j < expLetras.Length; j++)
+                {
+                    if(IsLetra(Convert.ToChar(expLetras.Substring(j, 1))))
+                    {
+                        expressaoPosfixa += Convert.ToChar(expLetras.Substring(j, 1));
+                    }
+
+                    if(IsOperador(Convert.ToChar(expLetras.Substring(j, 1))))
+                    {
+                        if (pilha.EstaVazia())
+                        {
+                            pilha.Empilhar(Convert.ToChar(expLetras.Substring(j, 1)));
+                        }
+                        else
+                        {
+                            while (Precedencia(pilha.OTopo(), Convert.ToChar(expLetras.Substring(j, 1)))) 
+                            {
+                                expressaoPosfixa += pilha.Desempilhar();
+                            }
+
+                            pilha.Empilhar(Convert.ToChar(expLetras.Substring(j, 1)));
+                        }
+                    }
+                }
+
+                while (!pilha.EstaVazia())
+                    expressaoPosfixa += pilha.Desempilhar();
+
+
+                lbSequencias.Text = "Posfixa: " + expressaoPosfixa + "\nInfixa : " + expLetras;
+
             }
         }
 
         //////////////////// MÉTODOS PARA RESOLVER A EXPRESSÃO ///////////////////////
-        private static bool IsOperador(char c)
+        private static bool IsOperador(char s)
         {
              foreach (char sinal in sinais)
-                if (c == sinal)
+                if (s == sinal)
                     return true;
 
             return false;
@@ -293,6 +327,15 @@ namespace apCalculadora
         {
             foreach (char numero in numeros)
                 if (n == numero)
+                    return true;
+
+            return false;
+        }
+
+        private static bool IsLetra(char l)
+        {
+            foreach (char letra in letras)
+                if (l == letra)
                     return true;
 
             return false;
@@ -325,9 +368,9 @@ namespace apCalculadora
             }
         }
 
-        private static bool Precedencia(char sinal1, char sinal2)
+        private static bool Precedencia(char sinalTopo, char sinal2)
         { 
-            int indice1 = Array.FindIndex(sinais, x => x == sinal1);
+            int indice1 = Array.FindIndex(sinais, x => x == sinalTopo);
             int indice2 = Array.FindIndex(sinais, y => y == sinal2);
 
             if (indice1 < 0 || indice2 < 0)
