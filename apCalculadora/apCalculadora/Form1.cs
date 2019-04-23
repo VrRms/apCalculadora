@@ -257,7 +257,8 @@ namespace apCalculadora
                         {
                             if (Convert.ToChar(expressao.Substring(j, 1)) != '(')
                             {
-                                if (Convert.ToChar(expressao.Substring(j - 1, 1)) != ')' && Convert.ToChar(expressao.Substring(j, 1)) != '√')
+                                if (Convert.ToChar(expressao.Substring(j - 1, 1)) != ')' && 
+                                    Convert.ToChar(expressao.Substring(j, 1)) != '√')
                                 {
                                     expLetras += letras[i];
                                     i++;
