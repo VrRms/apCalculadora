@@ -221,26 +221,37 @@ namespace apCalculadora
             {
                 string expressao = txtVisor.Text;
 
-                // ADICIONA OS VALORES NUMÉRICOS A UM VETOR
+                //////////////// ADICIONA OS VALORES NUMÉRICOS A UM VETOR //////////////////////////////
                 double[] vetValores = new double[26];
                 string[] a = expressao.Split(sinais);
 
-                for (int i = 0, j = 0; i < a.Length; i++, j++)
+                for (int i = 0, j = 0; j < a.Length; j++)
                 {
-                    if(j < a.Length)
-                        if (a[j] == "")
-                            j++;
-                    else
-                        vetValores[i] = double.Parse(a[j]);
+                    if (j < a.Length)
+                    {
+                        if (a[j] != "")
+                        {
+                            vetValores[i] = double.Parse(a[j]);
+
+                            if (expressao.StartsWith("-"))
+                            {
+                                vetValores[i] *= -1;
+                                expressao = expressao.Remove(0, 1);
+                            }
+                            i++;
+                        }
+                    }
                 }
 
-                // TRANSFORMA OS VALORES PARA LETRAS
+                ///////////////// TRANSFORMA OS VALORES PARA LETRAS ///////////////////////////
                 string expLetras = "";
                 for (int i = 0, j = 0; j <= expressao.Length;)
                 {
                     if (j == expressao.Length)
                     {
-                        expLetras += letras[i];
+                        if (Convert.ToChar(expressao.Substring(j - 1, 1)) != ')')
+                            expLetras += letras[i];
+
                         break;
                     }
 
@@ -253,27 +264,22 @@ namespace apCalculadora
                         }
                         j++;
                     }
-
                     if (j != expressao.Length)
+                    {
                         while (IsOperador(Convert.ToChar(expressao.Substring(j, 1))))
                         {
-                            if (Convert.ToChar(expressao.Substring(j, 1)) != '(')
+                            if (Convert.ToChar(expressao.Substring(j, 1)) != '(' && Convert.ToChar(expressao.Substring(j, 1)) != '√' && Convert.ToChar(expressao.Substring(j - 1, 1)) != ')')
                             {
-                                if (Convert.ToChar(expressao.Substring(j - 1, 1)) != ')' && Convert.ToChar(expressao.Substring(j, 1)) != '√')
-                                {
-                                    expLetras += letras[i];
-                                    i++;
-                                }
-                                expLetras += expressao.Substring(j, 1);        
+                                expLetras += letras[i];
+                                i++;
                             }
-                            else
-                                expLetras += expressao.Substring(j, 1);
-                                
+                            expLetras += expressao.Substring(j, 1);
                             j++;
 
                             if (j == expressao.Length)
                                 break;
                         }
+                    }
                 }
 
                 ////////////////// INFIXA PARA PÓS-FIXA //////////////////////////////////////////////////////////
@@ -322,6 +328,31 @@ namespace apCalculadora
 
                 lbSequencias.Text = "Posfixa: " + expressaoPosfixa + "\nInfixa : " + expLetras;
 
+                /////////////// CALCULAR EXPRESSÃO POSFIXA //////////////////////////////////////////
+                double resultado = 0;
+                int n = 0;
+                PilhaLista<double> pilhaValores = new PilhaLista<double>();
+
+                while (n < expressaoPosfixa.Length)
+                {
+                    char c = Convert.ToChar(expressaoPosfixa.Substring(n, 1));
+                    if (!IsOperador(c))
+                    {
+                        int indice = Array.FindIndex(letras, x => x == c);
+                        pilhaValores.Empilhar(vetValores[indice]);
+                    }
+                    else
+                    {
+                        if (c == '√')
+                            resultado = ResolverOperacao(0, pilhaValores.Desempilhar(), c);
+                        else
+                            resultado = ResolverOperacao(pilhaValores.Desempilhar(), pilhaValores.Desempilhar(), c);
+
+                        pilhaValores.Empilhar(resultado);
+                    }
+                    n++;
+                }
+                txtResultado.Text = resultado + "";
             }
         }
 
@@ -360,7 +391,7 @@ namespace apCalculadora
             return posfixa;
         }
 
-        private static double ResolverOperacao(double operando1, double operando2, char sinal)
+        private static double ResolverOperacao(double operando2, double operando1, char sinal)
         {
             switch (sinal)
             {
