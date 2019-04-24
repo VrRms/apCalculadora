@@ -100,6 +100,8 @@ namespace apCalculadora
 
                     if (txtVisor.Text != "0")
                         txtVisor.Text += "-";
+                    else
+                        txtVisor.Text = "-";
                 }
             }
             catch (Exception erro)
@@ -281,25 +283,35 @@ namespace apCalculadora
                 string expressaoPosfixa = "";
                 for (int j = 0; j < expLetras.Length; j++)
                 {
-                    if(IsLetra(Convert.ToChar(expLetras.Substring(j, 1))))
+                    if(!IsOperador(Convert.ToChar(expLetras.Substring(j, 1))))
                     {
                         expressaoPosfixa += Convert.ToChar(expLetras.Substring(j, 1));
                     }
-
-                    if(IsOperador(Convert.ToChar(expLetras.Substring(j, 1))))
+                    else
                     {
-                        if (pilha.EstaVazia())
+                        if (pilha.EstaVazia() && Convert.ToChar(expLetras.Substring(j, 1)) != ')')
                         {
                             pilha.Empilhar(Convert.ToChar(expLetras.Substring(j, 1)));
                         }
                         else
                         {
-                            while (Precedencia(pilha.OTopo(), Convert.ToChar(expLetras.Substring(j, 1)))) 
+                            if (Convert.ToChar(expLetras.Substring(j, 1)) == ')')
                             {
-                                expressaoPosfixa += pilha.Desempilhar();
-                            }
+                                while (pilha.OTopo() != '(')
+                                    expressaoPosfixa += pilha.Desempilhar();
 
-                            pilha.Empilhar(Convert.ToChar(expLetras.Substring(j, 1)));
+                                pilha.Desempilhar();
+                            }
+                            else
+                            {
+                                while (Precedencia(pilha.OTopo(), Convert.ToChar(expLetras.Substring(j, 1))) && pilha.OTopo() != '(')
+                                {
+                                    expressaoPosfixa += pilha.Desempilhar();
+                                    if (pilha.EstaVazia())
+                                        break;
+                                }
+                                pilha.Empilhar(Convert.ToChar(expLetras.Substring(j, 1)));
+                            }                            
                         }
                     }
                 }
