@@ -112,6 +112,7 @@
             this.btnAbreParent.Name = "btnAbreParent";
             this.btnAbreParent.Size = new System.Drawing.Size(60, 56);
             this.btnAbreParent.TabIndex = 36;
+            this.btnAbreParent.TabStop = false;
             this.btnAbreParent.Text = "(";
             this.btnAbreParent.UseVisualStyleBackColor = false;
             this.btnAbreParent.Click += new System.EventHandler(this.btnAbreParent_Click);
@@ -135,6 +136,7 @@
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(60, 56);
             this.btnClear.TabIndex = 37;
+            this.btnClear.TabStop = false;
             this.btnClear.Text = "C";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -180,6 +182,7 @@
             this.btnZero.Name = "btnZero";
             this.btnZero.Size = new System.Drawing.Size(60, 56);
             this.btnZero.TabIndex = 39;
+            this.btnZero.TabStop = false;
             this.btnZero.Text = "0";
             this.btnZero.UseVisualStyleBackColor = false;
             this.btnZero.Click += new System.EventHandler(this.btnNumerico_Click);
@@ -203,6 +206,7 @@
             this.btnUm.Name = "btnUm";
             this.btnUm.Size = new System.Drawing.Size(60, 56);
             this.btnUm.TabIndex = 40;
+            this.btnUm.TabStop = false;
             this.btnUm.Text = "1";
             this.btnUm.UseVisualStyleBackColor = false;
             this.btnUm.Click += new System.EventHandler(this.btnNumerico_Click);
@@ -226,6 +230,7 @@
             this.btnQuatro.Name = "btnQuatro";
             this.btnQuatro.Size = new System.Drawing.Size(60, 56);
             this.btnQuatro.TabIndex = 41;
+            this.btnQuatro.TabStop = false;
             this.btnQuatro.Text = "4";
             this.btnQuatro.UseVisualStyleBackColor = false;
             this.btnQuatro.Click += new System.EventHandler(this.btnNumerico_Click);
@@ -249,6 +254,7 @@
             this.btnSete.Name = "btnSete";
             this.btnSete.Size = new System.Drawing.Size(60, 56);
             this.btnSete.TabIndex = 42;
+            this.btnSete.TabStop = false;
             this.btnSete.Text = "7";
             this.btnSete.UseVisualStyleBackColor = false;
             this.btnSete.Click += new System.EventHandler(this.btnNumerico_Click);
@@ -272,6 +278,7 @@
             this.btnPotencia.Name = "btnPotencia";
             this.btnPotencia.Size = new System.Drawing.Size(64, 56);
             this.btnPotencia.TabIndex = 43;
+            this.btnPotencia.TabStop = false;
             this.btnPotencia.Text = "^";
             this.btnPotencia.UseVisualStyleBackColor = false;
             this.btnPotencia.Click += new System.EventHandler(this.btnPotencia_Click);
@@ -295,6 +302,7 @@
             this.btnDivisao.Name = "btnDivisao";
             this.btnDivisao.Size = new System.Drawing.Size(60, 55);
             this.btnDivisao.TabIndex = 47;
+            this.btnDivisao.TabStop = false;
             this.btnDivisao.UseVisualStyleBackColor = false;
             this.btnDivisao.Click += new System.EventHandler(this.btnDivisao_Click);
             // 
@@ -317,6 +325,7 @@
             this.btnOito.Name = "btnOito";
             this.btnOito.Size = new System.Drawing.Size(60, 56);
             this.btnOito.TabIndex = 46;
+            this.btnOito.TabStop = false;
             this.btnOito.Text = "8";
             this.btnOito.UseVisualStyleBackColor = false;
             this.btnOito.Click += new System.EventHandler(this.btnNumerico_Click);
@@ -340,6 +349,7 @@
             this.btnCinco.Name = "btnCinco";
             this.btnCinco.Size = new System.Drawing.Size(60, 56);
             this.btnCinco.TabIndex = 45;
+            this.btnCinco.TabStop = false;
             this.btnCinco.Text = "5";
             this.btnCinco.UseVisualStyleBackColor = false;
             this.btnCinco.Click += new System.EventHandler(this.btnNumerico_Click);
@@ -363,6 +373,7 @@
             this.btnDois.Name = "btnDois";
             this.btnDois.Size = new System.Drawing.Size(60, 56);
             this.btnDois.TabIndex = 44;
+            this.btnDois.TabStop = false;
             this.btnDois.Text = "2";
             this.btnDois.UseVisualStyleBackColor = false;
             this.btnDois.Click += new System.EventHandler(this.btnNumerico_Click);
@@ -385,6 +396,7 @@
             this.btnMult.Name = "btnMult";
             this.btnMult.Size = new System.Drawing.Size(60, 56);
             this.btnMult.TabIndex = 51;
+            this.btnMult.TabStop = false;
             this.btnMult.UseVisualStyleBackColor = false;
             this.btnMult.Click += new System.EventHandler(this.btnMult_Click);
             // 
@@ -407,6 +419,7 @@
             this.btnNove.Name = "btnNove";
             this.btnNove.Size = new System.Drawing.Size(60, 56);
             this.btnNove.TabIndex = 50;
+            this.btnNove.TabStop = false;
             this.btnNove.Text = "9";
             this.btnNove.UseVisualStyleBackColor = false;
             this.btnNove.Click += new System.EventHandler(this.btnNumerico_Click);
@@ -430,6 +443,7 @@
             this.btnSeis.Name = "btnSeis";
             this.btnSeis.Size = new System.Drawing.Size(60, 56);
             this.btnSeis.TabIndex = 49;
+            this.btnSeis.TabStop = false;
             this.btnSeis.Text = "6";
             this.btnSeis.UseVisualStyleBackColor = false;
             this.btnSeis.Click += new System.EventHandler(this.btnNumerico_Click);
@@ -453,6 +467,7 @@
             this.btnTres.Name = "btnTres";
             this.btnTres.Size = new System.Drawing.Size(60, 56);
             this.btnTres.TabIndex = 48;
+            this.btnTres.TabStop = false;
             this.btnTres.Text = "3";
             this.btnTres.UseVisualStyleBackColor = false;
             this.btnTres.Click += new System.EventHandler(this.btnNumerico_Click);
@@ -476,6 +491,7 @@
             this.btnSubtracao.Name = "btnSubtracao";
             this.btnSubtracao.Size = new System.Drawing.Size(60, 56);
             this.btnSubtracao.TabIndex = 55;
+            this.btnSubtracao.TabStop = false;
             this.btnSubtracao.UseVisualStyleBackColor = false;
             this.btnSubtracao.Click += new System.EventHandler(this.btnSubtracao_Click);
             // 
@@ -498,6 +514,7 @@
             this.btnSoma.Name = "btnSoma";
             this.btnSoma.Size = new System.Drawing.Size(60, 56);
             this.btnSoma.TabIndex = 54;
+            this.btnSoma.TabStop = false;
             this.btnSoma.UseVisualStyleBackColor = false;
             this.btnSoma.Click += new System.EventHandler(this.btnSoma_Click);
             // 
@@ -520,6 +537,7 @@
             this.btnPonto.Name = "btnPonto";
             this.btnPonto.Size = new System.Drawing.Size(60, 56);
             this.btnPonto.TabIndex = 53;
+            this.btnPonto.TabStop = false;
             this.btnPonto.UseVisualStyleBackColor = false;
             this.btnPonto.Click += new System.EventHandler(this.btnPonto_Click);
             // 
@@ -542,6 +560,7 @@
             this.btnFechaParent.Name = "btnFechaParent";
             this.btnFechaParent.Size = new System.Drawing.Size(60, 56);
             this.btnFechaParent.TabIndex = 52;
+            this.btnFechaParent.TabStop = false;
             this.btnFechaParent.Text = ")";
             this.btnFechaParent.UseVisualStyleBackColor = false;
             this.btnFechaParent.Click += new System.EventHandler(this.btnFechaParent_Click);
@@ -602,6 +621,7 @@
             this.btnRaiz.Name = "btnRaiz";
             this.btnRaiz.Size = new System.Drawing.Size(60, 56);
             this.btnRaiz.TabIndex = 58;
+            this.btnRaiz.TabStop = false;
             this.btnRaiz.UseVisualStyleBackColor = false;
             this.btnRaiz.Click += new System.EventHandler(this.btnRaiz_Click);
             // 
@@ -624,6 +644,7 @@
             this.btnApagarUm.Name = "btnApagarUm";
             this.btnApagarUm.Size = new System.Drawing.Size(62, 56);
             this.btnApagarUm.TabIndex = 57;
+            this.btnApagarUm.TabStop = false;
             this.btnApagarUm.UseVisualStyleBackColor = false;
             this.btnApagarUm.Click += new System.EventHandler(this.btnApagarUm_Click);
             // 
@@ -645,7 +666,7 @@
             this.panel1.Controls.Add(this.lbSequencias);
             this.panel1.Controls.Add(this.txtResultado);
             this.panel1.Controls.Add(this.txtVisor);
-            this.panel1.Location = new System.Drawing.Point(6, 4);
+            this.panel1.Location = new System.Drawing.Point(6, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(391, 121);
             this.panel1.TabIndex = 58;

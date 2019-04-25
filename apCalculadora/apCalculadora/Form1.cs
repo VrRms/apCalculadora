@@ -196,7 +196,8 @@ namespace apCalculadora
             {
                 try
                 {
-                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
+                    if (txtVisor.Text.Substring(txtVisor.Text.Length - 1) != ")")
+                        Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
                 }
                 catch (Exception erro)
                 {
@@ -258,7 +259,7 @@ namespace apCalculadora
                         break;
                     }
 
-                    while (IsNumero(Convert.ToChar(expressao.Substring(j,1))))
+                    while (IsNumero(Convert.ToChar(expressao.Substring(j, 1))))
                     {
                         if (j + 1 == expressao.Length)
                         {
@@ -292,7 +293,7 @@ namespace apCalculadora
                 string expressaoPosfixa = "";
                 for (int j = 0; j < expLetras.Length; j++)
                 {
-                    if(!IsOperador(Convert.ToChar(expLetras.Substring(j, 1))))
+                    if (!IsOperador(Convert.ToChar(expLetras.Substring(j, 1))))
                     {
                         expressaoPosfixa += Convert.ToChar(expLetras.Substring(j, 1));
                     }
@@ -320,7 +321,7 @@ namespace apCalculadora
                                         break;
                                 }
                                 pilha.Empilhar(Convert.ToChar(expLetras.Substring(j, 1)));
-                            }                            
+                            }
                         }
                     }
                 }
@@ -362,10 +363,100 @@ namespace apCalculadora
             }
         }
 
-        //////////////////// MÉTODOS PARA RESOLVER A EXPRESSÃO ///////////////////////
+        // MÉTODO QUE RECONHECE AQS TECLAS DO TECLADO
+        private void frmCalculadora_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Shift)
+                switch (e.KeyValue)
+                {
+                    case 48: // ")"
+                        btnFechaParent.PerformClick();
+                        break;
+                    case 57: // "("
+                        btnAbreParent.PerformClick();
+                        break;
+                    case 56: // "*"
+                        btnMult.PerformClick();
+                        break;
+                }
+            else
+                switch (e.KeyValue)
+                {
+                    case 96: // "0" do teclado numérico
+                    case 48: // "0" do teclado 
+                        btnZero.PerformClick();
+                        break;
+                    case 97: // "1" do teclado numérico
+                    case 49: // "1" do teclado 
+                        btnUm.PerformClick();
+                        break;
+                    case 98: // "2" do teclado numérico
+                    case 50: // "2" do teclado 
+                        btnDois.PerformClick();
+                        break;
+                    case 99: // "3" do teclado numérico
+                    case 51: // "3" do teclado 
+                        btnTres.PerformClick();
+                        break;
+                    case 100: // "4" do teclado numérico
+                    case 52:  // "4" do teclado 
+                        btnQuatro.PerformClick();
+                        break;
+                    case 101: // "5" do teclado numérico
+                    case 53:  // "5" do teclado 
+                        btnCinco.PerformClick();
+                        break;
+                    case 102: // "6" do teclado numérico
+                    case 54:  // "6" do teclado 
+                        btnSeis.PerformClick();
+                        break;
+                    case 103: // "7" do teclado numérico
+                    case 55:  // "7" do teclado 
+                        btnSete.PerformClick();
+                        break;
+                    case 104: // "8" do teclado numérico
+                    case 56:  // "8" do teclado 
+                        btnOito.PerformClick();
+                        break;
+                    case 105: // "9" do teclado numérico
+                    case 57:  // "9" do teclado 
+                        btnNove.PerformClick();
+                        break;
+                    case 8: // "BACKSPACE"
+                        btnApagarUm.PerformClick();
+                        break;
+                    case 46: // "DELETE"
+                        btnClear.PerformClick();
+                        break;
+                    case 109: // "-" do teclado numérico
+                    case 189: // "-" do teclado
+                        btnSubtracao.PerformClick();
+                        break;
+                    case 107: // "+" do teclado numérico
+                    case 187: // "+" do teclado
+                        btnSoma.PerformClick();
+                        break;
+                    case 106: // "*" do teclado numérico
+                        btnMult.PerformClick();
+                        break;
+                    case 111: // "/" do teclado numérico
+                    case 193: // "/" do teclado 
+                        btnDivisao.PerformClick();
+                        break;
+                    case 194: // "." do teclado numérico
+                    case 190: // "." do teclado 
+                        btnPonto.PerformClick();
+                        break;
+                    case 13: // "ENTER" de ambos teclados
+                        btnIgual.PerformClick();
+                        break;
+                }
+        }
+
+        ////////////////////////////////// MÉTODOS AUXILIARES ///////////////////////////////////////////
         private static bool IsOperador(char s)
         {
-             foreach (char sinal in sinais)
+            foreach (char sinal in sinais)
                 if (s == sinal)
                     return true;
 
@@ -397,28 +488,29 @@ namespace apCalculadora
             return posfixa;
         }
 
+        // MÉTODO QUE RESOLVE A OPERAÇÃO, DEFINIDA PELO SINAL, ENTRE OS OPERANDOS
         private static double ResolverOperacao(double operando2, double operando1, char sinal)
         {
             switch (sinal)
             {
-                case '+': return operando1 + operando2;
+                case '+': return operando1 + operando2; // calcula adição
 
-                case '-': return operando1 - operando2;
+                case '-': return operando1 - operando2; // calcula subtração
 
-                case '*': return operando1 * operando2;
+                case '*': return operando1 * operando2; // calcula multiplicação
 
-                case '/': return operando1 / operando2;
+                case '/': return operando1 / operando2; // calcula divisão
 
-                case '^': return Math.Pow(operando1, operando2);
+                case '^': return Math.Pow(operando1, operando2); // calcula potenciação
 
-                case '√': return Math.Sqrt(operando1);
+                case '√': return Math.Sqrt(operando1); // calcula raiz quadrada de apenas um operando
 
-                default: return 0; // retorno padrão, apenas para satisfazer o compilador 
+                default: return 0; // retorno padrão
             }
         }
 
         private static bool Precedencia(char sinalTopo, char sinal2)
-        { 
+        {
             int indice1 = Array.FindIndex(sinais, x => x == sinalTopo);
             int indice2 = Array.FindIndex(sinais, y => y == sinal2);
 
@@ -432,67 +524,6 @@ namespace apCalculadora
                 return true;
 
             return false;
-        }
-
-        private void frmCalculadora_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyValue)
-            {
-                case 96:
-                    btnZero.PerformClick();
-                    break;
-                case 97:
-                    btnUm.PerformClick();
-                    break;
-                case Keys.NumPad2:
-                    btnDois.PerformClick();
-                    break;
-                case Keys.NumPad3:
-                    btnTres.PerformClick();
-                    break;
-                case Keys.NumPad4:
-                    btnQuatro.PerformClick();
-                    break;
-                case Keys.NumPad5:
-                    btnCinco.PerformClick();
-                    break;
-                case Keys.NumPad6:
-                    btnSeis.PerformClick();
-                    break;
-                case Keys.NumPad7:
-                    btnSete.PerformClick();
-                    break;
-                case Keys.NumPad8:
-                    btnOito.PerformClick();
-                    break;
-                case Keys.NumPad9:
-                    btnNove.PerformClick();
-                    break;
-                case Keys.Delete:
-                    btnClear.PerformClick();
-                    break;
-                case Keys.Back:
-                    btnApagarUm.PerformClick();
-                    break;
-                case Keys.Subtract:
-                    btnSubtracao.PerformClick();
-                    break;
-                case Keys.OemMinus:
-                    btnSubtracao.PerformClick();
-                    break;
-                case Keys.Add:
-                    btnSoma.PerformClick();
-                    break;
-                case Keys.Oemplus:
-                    btnSoma.PerformClick();
-                    break;
-                case Keys.Multiply:
-                    btnMult.PerformClick();
-                    break;
-                case 65:
-                    btnDivisao.PerformClick();
-                    break;
-            }
         }
     }
 }
