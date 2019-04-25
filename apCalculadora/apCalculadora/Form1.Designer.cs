@@ -88,10 +88,10 @@
             this.txtResultado.MaxLength = 18;
             this.txtResultado.Name = "txtResultado";
             this.txtResultado.ReadOnly = true;
-            this.txtResultado.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtResultado.Size = new System.Drawing.Size(376, 31);
             this.txtResultado.TabIndex = 1;
             this.txtResultado.TabStop = false;
+            this.txtResultado.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // btnAbreParent
             // 

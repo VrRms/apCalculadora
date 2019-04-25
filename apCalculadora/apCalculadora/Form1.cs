@@ -28,6 +28,9 @@ namespace apCalculadora
         {
             if (txtVisor.Text != "0")
                 txtVisor.Text = Convert.ToString(0);
+
+            txtResultado.Text = "";
+            lbSequencias.Text = "";
         }
 
         // BOTÃO "^"
@@ -340,6 +343,9 @@ namespace apCalculadora
                     {
                         int indice = Array.FindIndex(letras, x => x == c);
                         pilhaValores.Empilhar(vetValores[indice]);
+
+                        if (expressaoPosfixa.Length == 1)
+                            resultado = vetValores[indice];
                     }
                     else
                     {
