@@ -30,7 +30,7 @@ namespace apCalculadora
                 txtVisor.Text = Convert.ToString(0);
 
             txtResultado.Text = "";
-            lbSequencias.Text = "";
+            lbSequencias.Text = "Posfixa: \nInfixa : ";
         }
 
         // BOTÃO "^"
@@ -432,6 +432,67 @@ namespace apCalculadora
                 return true;
 
             return false;
+        }
+
+        private void frmCalculadora_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyValue)
+            {
+                case 96:
+                    btnZero.PerformClick();
+                    break;
+                case 97:
+                    btnUm.PerformClick();
+                    break;
+                case Keys.NumPad2:
+                    btnDois.PerformClick();
+                    break;
+                case Keys.NumPad3:
+                    btnTres.PerformClick();
+                    break;
+                case Keys.NumPad4:
+                    btnQuatro.PerformClick();
+                    break;
+                case Keys.NumPad5:
+                    btnCinco.PerformClick();
+                    break;
+                case Keys.NumPad6:
+                    btnSeis.PerformClick();
+                    break;
+                case Keys.NumPad7:
+                    btnSete.PerformClick();
+                    break;
+                case Keys.NumPad8:
+                    btnOito.PerformClick();
+                    break;
+                case Keys.NumPad9:
+                    btnNove.PerformClick();
+                    break;
+                case Keys.Delete:
+                    btnClear.PerformClick();
+                    break;
+                case Keys.Back:
+                    btnApagarUm.PerformClick();
+                    break;
+                case Keys.Subtract:
+                    btnSubtracao.PerformClick();
+                    break;
+                case Keys.OemMinus:
+                    btnSubtracao.PerformClick();
+                    break;
+                case Keys.Add:
+                    btnSoma.PerformClick();
+                    break;
+                case Keys.Oemplus:
+                    btnSoma.PerformClick();
+                    break;
+                case Keys.Multiply:
+                    btnMult.PerformClick();
+                    break;
+                case 65:
+                    btnDivisao.PerformClick();
+                    break;
+            }
         }
     }
 }
