@@ -17,7 +17,7 @@ namespace apCalculadora
         // BOTÕES NUMÉRICOS
         private void btnNumerico_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text == "0")
+            if (txtVisor.Text == "0") // textbox vazio
                 txtVisor.Text = Convert.ToString(((Button)sender).Text);
             else
                 txtVisor.Text += ((Button)sender).Text;
@@ -26,126 +26,89 @@ namespace apCalculadora
         // BOTÃO "C"
         private void btnClear_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text != "0")
+            if (txtVisor.Text != "0") // textbox não vazio
                 txtVisor.Text = Convert.ToString(0);
 
-            txtResultado.Text = "";
-            lbSequencias.Text = "Posfixa: \nInfixa : ";
+            txtResultado.Text = ""; // apaga o resultado
+            lbSequencias.Text = "Posfixa: \nInfixa : "; // reinicializa
         }
 
         // BOTÃO "^"
         private void btnPotencia_Click(object sender, EventArgs e)
         {
-            try
+            if (txtVisor.Text.EndsWith(")"))
+                txtVisor.Text += "^";
+            else
             {
-                if (txtVisor.Text.EndsWith(")"))
+                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
                     txtVisor.Text += "^";
-                else
-                {
-                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
-
-                    if (txtVisor.Text != "0")
-                        txtVisor.Text += "^";
-                }
             }
-            catch (Exception erro)
-            { }
+
         }
 
         // BOTÃO "/"
         private void btnDivisao_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (txtVisor.Text.EndsWith(")"))
-                    txtVisor.Text += "/";
-                else
-                {
-                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
 
-                    if (txtVisor.Text != "0")
-                        txtVisor.Text += "/";
-                }
+            if (txtVisor.Text.EndsWith(")"))
+                txtVisor.Text += "/";
+            else
+            {
+                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
+                    txtVisor.Text += "/";
             }
-            catch (Exception erro)
-            { }
         }
 
         // BOTÃO "*"
         private void btnMult_Click(object sender, EventArgs e)
         {
-            try
+            if (txtVisor.Text.EndsWith(")"))
+                txtVisor.Text += "*";
+            else
             {
-                if (txtVisor.Text.EndsWith(")"))
+                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
                     txtVisor.Text += "*";
-                else
-                {
-                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
-
-                    if (txtVisor.Text != "0")
-                        txtVisor.Text += "*";
-                }
             }
-            catch (Exception erro)
-            { }
         }
 
         // BOTÃO "-"
         private void btnSubtracao_Click(object sender, EventArgs e)
         {
-            try
+            if (txtVisor.Text.EndsWith(")"))
+                txtVisor.Text += "-";
+            else
             {
-                if (txtVisor.Text.EndsWith(")"))
-                    txtVisor.Text += "-";
-                else
+                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))))
                 {
-                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
-
-                    if (txtVisor.Text != "0")
+                    if (txtVisor.Text != "0") // textbox não vazio
                         txtVisor.Text += "-";
                     else
                         txtVisor.Text = "-";
                 }
             }
-            catch (Exception erro)
-            { }
         }
 
         // BOTÃO "+"
         private void btnSoma_Click(object sender, EventArgs e)
         {
-            try
+            if (txtVisor.Text.EndsWith(")"))
+                txtVisor.Text += "+";
+            else
             {
-                if (txtVisor.Text.EndsWith(")"))
+                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
                     txtVisor.Text += "+";
-                else
-                {
-                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
-
-                    if (txtVisor.Text != "0")
-                        txtVisor.Text += "+";
-                }
             }
-            catch (Exception erro)
-            { }
         }
 
         // BOTÃO "√"
         private void btnRaiz_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text == "0")
+            if (txtVisor.Text == "0") // textbox  vazio
                 txtVisor.Text = "√";
             else
             {
-                try
-                {
-                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
-                }
-                catch (Exception erro)
-                {
-                    if (!txtVisor.Text.EndsWith(")"))
-                        txtVisor.Text += "√";
-                }
+                if (IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && !txtVisor.Text.EndsWith(")"))
+                    txtVisor.Text += "√";
             }
 
         }
@@ -155,54 +118,35 @@ namespace apCalculadora
         {
             if (!txtVisor.Text.EndsWith(")") && !txtVisor.Text.EndsWith(","))
             {
-                try
-                {
-                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
-
+                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))))
                     txtVisor.Text += ",";
-                }
-                catch (Exception erro)
-                {
+                else
                     txtVisor.Text = txtVisor.Text + "0,";
-                }
             }
         }
 
         // BOTÃO ")"
         private void btnFechaParent_Click(object sender, EventArgs e)
         {
-            try
+            if (txtVisor.Text.EndsWith(")"))
+                txtVisor.Text += ")";
+            else
             {
-                if (txtVisor.Text.EndsWith(")"))
+                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
                     txtVisor.Text += ")";
-                else
-                {
-                    Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
-
-                    if (txtVisor.Text != "0")
-                        txtVisor.Text += ")";
-                }
             }
-            catch (Exception erro)
-            { }
         }
 
         // BOTÃO "("
         private void btnAbreParent_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text == "0")
+            if (txtVisor.Text == "0") // textbox vazio
                 txtVisor.Text = Convert.ToString("(");
             else
             {
-                try
-                {
-                    if (txtVisor.Text.Substring(txtVisor.Text.Length - 1) != ")")
-                        Convert.ToInt32(txtVisor.Text.Substring(txtVisor.Text.Length - 1));
-                }
-                catch (Exception erro)
-                {
-                    txtVisor.Text += "(";
-                }
+                if (txtVisor.Text.Substring(txtVisor.Text.Length - 1) != ")")
+                    if (IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))))
+                        txtVisor.Text += "(";
             }
         }
 
@@ -211,7 +155,7 @@ namespace apCalculadora
         {
             if (txtVisor.Text.Length != 0)
             {
-                txtVisor.Text = txtVisor.Text.Remove(txtVisor.Text.Length - 1);
+                txtVisor.Text = txtVisor.Text.Remove(txtVisor.Text.Length - 1); // apaga um caracter
 
                 if (txtVisor.Text.Length == 0)
                     txtVisor.Text = Convert.ToString(0);
@@ -221,66 +165,63 @@ namespace apCalculadora
         // BOTÃO "="
         private void btnIgual_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text != "0")
+            if (txtVisor.Text != "0")  // textbox não vazio
             {
                 string expressao = txtVisor.Text;
 
                 //////////////// ADICIONA OS VALORES NUMÉRICOS A UM VETOR //////////////////////////////
                 double[] vetValores = new double[26];
-                string[] a = expressao.Split(sinais);
+                string[] soValores = expressao.Split(sinais);
 
-                for (int i = 0, j = 0; j < a.Length; j++)
+                for (int posVet = 0, posSoValores = 0; posSoValores < soValores.Length; posSoValores++)
                 {
-                    if (j < a.Length)
+                    if (posSoValores < soValores.Length)
                     {
-                        if (a[j] != "")
+                        if (soValores[posSoValores] != "")
                         {
-                            vetValores[i] = double.Parse(a[j]);
+                            vetValores[posVet] = double.Parse(soValores[posSoValores]);
 
                             if (expressao.StartsWith("-"))
                             {
-                                vetValores[i] *= -1;
+                                vetValores[posVet] *= -1;
                                 expressao = expressao.Remove(0, 1);
                             }
-                            i++;
+                            posVet++;
                         }
                     }
                 }
 
-                ///////////////// TRANSFORMA OS VALORES PARA LETRAS ///////////////////////////
+                ///////////////// TRANSFORMA OS VALORES PARA LETRAS /////////////////////////////////////////////
                 string expLetras = "";
-                for (int i = 0, j = 0; j <= expressao.Length;)
+                for (int posLetra = 0, posExpressao = 0; posExpressao <= expressao.Length;) // posLetra e posExpressao são locais
                 {
-                    if (j == expressao.Length)
+                    if (posExpressao == expressao.Length)
                     {
-                        if (Convert.ToChar(expressao.Substring(j - 1, 1)) != ')')
-                            expLetras += letras[i];
+                        if (Convert.ToChar(expressao.Substring(posExpressao - 1, 1)) != ')')
+                            expLetras += letras[posLetra];
 
                         break;
                     }
-
-                    while (IsNumero(Convert.ToChar(expressao.Substring(j, 1))))
+                    while (IsNumero(Convert.ToChar(expressao.Substring(posExpressao, 1))))
                     {
-                        if (j + 1 == expressao.Length)
-                        {
-                            j++;
+                        if (posExpressao == expressao.Length)
                             break;
-                        }
-                        j++;
-                    }
-                    if (j != expressao.Length)
-                    {
-                        while (IsOperador(Convert.ToChar(expressao.Substring(j, 1))))
-                        {
-                            if (Convert.ToChar(expressao.Substring(j, 1)) != '(' && Convert.ToChar(expressao.Substring(j, 1)) != '√' && Convert.ToChar(expressao.Substring(j - 1, 1)) != ')')
-                            {
-                                expLetras += letras[i];
-                                i++;
-                            }
-                            expLetras += expressao.Substring(j, 1);
-                            j++;
 
-                            if (j == expressao.Length)
+                        posExpressao++;
+                    }
+                    if (posExpressao != expressao.Length)
+                    {
+                        while (IsOperador(Convert.ToChar(expressao.Substring(posExpressao, 1))))
+                        {
+                            if (Convert.ToChar(expressao.Substring(posExpressao, 1)) != '(' && Convert.ToChar(expressao.Substring(posExpressao, 1)) != '√' && Convert.ToChar(expressao.Substring(posExpressao - 1, 1)) != ')')
+                            {
+                                expLetras += letras[posLetra];
+                                posLetra++;
+                            }
+                            expLetras += expressao.Substring(posExpressao, 1);
+                            posExpressao++;
+
+                            if (posExpressao == expressao.Length)
                                 break;
                         }
                     }
@@ -291,21 +232,22 @@ namespace apCalculadora
                 PilhaLista<char> pilha = new PilhaLista<char>();
 
                 string expressaoPosfixa = "";
-                for (int j = 0; j < expLetras.Length; j++)
+                for (int posExp = 0; posExp < expLetras.Length; posExp++)
                 {
-                    if (!IsOperador(Convert.ToChar(expLetras.Substring(j, 1))))
+                    char c = Convert.ToChar(expLetras.Substring(posExp, 1));
+                    if (!IsOperador(c))
                     {
-                        expressaoPosfixa += Convert.ToChar(expLetras.Substring(j, 1));
+                        expressaoPosfixa += c;
                     }
                     else
                     {
-                        if (pilha.EstaVazia() && Convert.ToChar(expLetras.Substring(j, 1)) != ')')
+                        if (pilha.EstaVazia() && c != ')')
                         {
-                            pilha.Empilhar(Convert.ToChar(expLetras.Substring(j, 1)));
+                            pilha.Empilhar(c);
                         }
                         else
                         {
-                            if (Convert.ToChar(expLetras.Substring(j, 1)) == ')')
+                            if (c == ')')
                             {
                                 while (pilha.OTopo() != '(')
                                     expressaoPosfixa += pilha.Desempilhar();
@@ -314,39 +256,36 @@ namespace apCalculadora
                             }
                             else
                             {
-                                while (Precedencia(pilha.OTopo(), Convert.ToChar(expLetras.Substring(j, 1))) && pilha.OTopo() != '(')
+                                while (Precedencia(pilha.OTopo(), c) && pilha.OTopo() != '(')
                                 {
                                     expressaoPosfixa += pilha.Desempilhar();
                                     if (pilha.EstaVazia())
                                         break;
                                 }
-                                pilha.Empilhar(Convert.ToChar(expLetras.Substring(j, 1)));
+                                pilha.Empilhar(c);
                             }
                         }
                     }
                 }
-
                 while (!pilha.EstaVazia())
                     expressaoPosfixa += pilha.Desempilhar();
-
 
                 lbSequencias.Text = "Posfixa: " + expressaoPosfixa + "\nInfixa : " + expLetras;
 
                 /////////////// CALCULAR EXPRESSÃO POSFIXA //////////////////////////////////////////
                 double resultado = 0;
-                int n = 0;
+                int posExpPosFixa = 0;
                 PilhaLista<double> pilhaValores = new PilhaLista<double>();
 
-                while (n < expressaoPosfixa.Length)
+                while (posExpPosFixa < expressaoPosfixa.Length)
                 {
-                    char c = Convert.ToChar(expressaoPosfixa.Substring(n, 1));
+                    char c = Convert.ToChar(expressaoPosfixa.Substring(posExpPosFixa, 1));
                     if (!IsOperador(c))
                     {
-                        int indice = Array.FindIndex(letras, x => x == c);
-                        pilhaValores.Empilhar(vetValores[indice]);
+                        pilhaValores.Empilhar(vetValores[c - 'A']);
 
                         if (expressaoPosfixa.Length == 1)
-                            resultado = vetValores[indice];
+                            resultado = vetValores[c - 'A'];
                     }
                     else
                     {
@@ -357,7 +296,7 @@ namespace apCalculadora
 
                         pilhaValores.Empilhar(resultado);
                     }
-                    n++;
+                    posExpPosFixa++;
                 }
                 txtResultado.Text = resultado + "";
             }
