@@ -73,6 +73,7 @@
             this.txtVisor.ReadOnly = true;
             this.txtVisor.Size = new System.Drawing.Size(376, 31);
             this.txtVisor.TabIndex = 0;
+            this.txtVisor.TabStop = false;
             this.txtVisor.Text = "0";
             this.txtVisor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -159,7 +160,7 @@
             this.btnIgual.Location = new System.Drawing.Point(297, 213);
             this.btnIgual.Name = "btnIgual";
             this.btnIgual.Size = new System.Drawing.Size(60, 144);
-            this.btnIgual.TabIndex = 38;
+            this.btnIgual.TabIndex = 0;
             this.btnIgual.UseVisualStyleBackColor = false;
             this.btnIgual.Click += new System.EventHandler(this.btnIgual_Click);
             // 

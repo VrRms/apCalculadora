@@ -5,7 +5,7 @@ namespace apCalculadora
 {
     public partial class frmCalculadora : Form
     {
-        public static readonly char[] sinais = { '(', '√', '^', '*', '/', '+', '-', ')' }; // lista de todos os operadores
+        public static readonly char[] sinais = { '(', '√', '^', '/', '*', '-', '+', ')' }; // lista de todos os operadores
         public static readonly char[] numeros = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',' }; // lista dos números e a vírgula para números decimais
         public static readonly char[] letras = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }; // lista de letras
 
