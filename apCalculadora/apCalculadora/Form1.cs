@@ -204,8 +204,11 @@ namespace apCalculadora
                     }
                     while (IsNumero(Convert.ToChar(expressao.Substring(posExpressao, 1))))
                     {
-                        if (posExpressao == expressao.Length)
+                        if (posExpressao == expressao.Length - 1)
+                        {
+                            posExpressao++;
                             break;
+                        }
 
                         posExpressao++;
                     }
@@ -270,35 +273,42 @@ namespace apCalculadora
                 while (!pilha.EstaVazia())
                     expressaoPosfixa += pilha.Desempilhar();
 
-                lbSequencias.Text = "Posfixa: " + expressaoPosfixa + "\nInfixa : " + expLetras;
-
                 /////////////// CALCULAR EXPRESSÃO POSFIXA //////////////////////////////////////////
                 double resultado = 0;
                 int posExpPosFixa = 0;
                 PilhaLista<double> pilhaValores = new PilhaLista<double>();
-
-                while (posExpPosFixa < expressaoPosfixa.Length)
+                try
                 {
-                    char c = Convert.ToChar(expressaoPosfixa.Substring(posExpPosFixa, 1));
-                    if (!IsOperador(c))
+                    while (posExpPosFixa < expressaoPosfixa.Length)
                     {
-                        pilhaValores.Empilhar(vetValores[c - 'A']);
+                        char c = Convert.ToChar(expressaoPosfixa.Substring(posExpPosFixa, 1));
+                        if (!IsOperador(c))
+                        {
+                            pilhaValores.Empilhar(vetValores[c - 'A']);
 
-                        if (expressaoPosfixa.Length == 1)
-                            resultado = vetValores[c - 'A'];
-                    }
-                    else
-                    {
-                        if (c == '√')
-                            resultado = ResolverOperacao(0, pilhaValores.Desempilhar(), c);
+                            if (expressaoPosfixa.Length == 1)
+                                resultado = vetValores[c - 'A'];
+                        }
                         else
-                            resultado = ResolverOperacao(pilhaValores.Desempilhar(), pilhaValores.Desempilhar(), c);
+                        {
+                            if (c == '√')
+                                resultado = ResolverOperacao(0, pilhaValores.Desempilhar(), c);
+                            else
+                                resultado = ResolverOperacao(pilhaValores.Desempilhar(), pilhaValores.Desempilhar(), c);
 
-                        pilhaValores.Empilhar(resultado);
+                            pilhaValores.Empilhar(resultado);
+                        }
+                        posExpPosFixa++;
                     }
-                    posExpPosFixa++;
+                    txtResultado.Text = resultado + "";
+                    lbSequencias.Text = "Posfixa: " + expressaoPosfixa + "\nInfixa : " + expLetras;
                 }
-                txtResultado.Text = resultado + "";
+                catch (Exception erro)
+                {
+                    MessageBox.Show("Expressão incorreta!", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtResultado.Text = "";
+                    lbSequencias.Text = "Posfixa: \nInfixa : ";
+                }
             }
         }
 
