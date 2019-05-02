@@ -20,7 +20,7 @@ namespace apCalculadora
             if (txtVisor.Text == "0") // textbox vazio
                 txtVisor.Text = Convert.ToString(((Button)sender).Text);
             else
-                txtVisor.Text += ((Button)sender).Text;
+                txtVisor.Text += ((Button)sender).Text; // adiciona o valor do botão
         }
 
         // BOTÃO "C"
@@ -40,7 +40,7 @@ namespace apCalculadora
                 txtVisor.Text += "^";
             else
             {
-                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length-1]) && txtVisor.Text != "0")
                     txtVisor.Text += "^";
             }
 
@@ -54,7 +54,7 @@ namespace apCalculadora
                 txtVisor.Text += "/";
             else
             {
-                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
                     txtVisor.Text += "/";
             }
         }
@@ -66,7 +66,7 @@ namespace apCalculadora
                 txtVisor.Text += "*";
             else
             {
-                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
                     txtVisor.Text += "*";
             }
         }
@@ -78,7 +78,7 @@ namespace apCalculadora
                 txtVisor.Text += "-";
             else
             {
-                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))))
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]))
                 {
                     if (txtVisor.Text != "0") // textbox não vazio
                         txtVisor.Text += "-";
@@ -95,7 +95,7 @@ namespace apCalculadora
                 txtVisor.Text += "+";
             else
             {
-                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
                     txtVisor.Text += "+";
             }
         }
@@ -107,7 +107,7 @@ namespace apCalculadora
                 txtVisor.Text = "√";
             else
             {
-                if (IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && !txtVisor.Text.EndsWith(")"))
+                if (IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && !txtVisor.Text.EndsWith(")"))
                     txtVisor.Text += "√";
             }
 
@@ -118,7 +118,7 @@ namespace apCalculadora
         {
             if (!txtVisor.Text.EndsWith(")") && !txtVisor.Text.EndsWith(","))
             {
-                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))))
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]))
                     txtVisor.Text += ",";
                 else
                     txtVisor.Text = txtVisor.Text + "0,";
@@ -132,7 +132,7 @@ namespace apCalculadora
                 txtVisor.Text += ")";
             else
             {
-                if (!IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
                     txtVisor.Text += ")";
             }
         }
@@ -141,11 +141,11 @@ namespace apCalculadora
         private void btnAbreParent_Click(object sender, EventArgs e)
         {
             if (txtVisor.Text == "0") // textbox vazio
-                txtVisor.Text = Convert.ToString("(");
+                txtVisor.Text = "(";
             else
             {
                 if (txtVisor.Text.Substring(txtVisor.Text.Length - 1) != ")")
-                    if (IsOperador(Convert.ToChar(txtVisor.Text.Substring(txtVisor.Text.Length - 1))))
+                    if (IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]))
                         txtVisor.Text += "(";
             }
         }
@@ -239,15 +239,11 @@ namespace apCalculadora
                 {
                     char c = Convert.ToChar(expLetras.Substring(posExp, 1));
                     if (!IsOperador(c))
-                    {
                         expressaoPosfixa += c;
-                    }
                     else
                     {
                         if (pilha.EstaVazia() && c != ')')
-                        {
                             pilha.Empilhar(c);
-                        }
                         else
                         {
                             if (c == ')')
@@ -428,13 +424,6 @@ namespace apCalculadora
                     return true;
 
             return false;
-        }
-
-        private static string ConverterParaPosfixa(string infixa)
-        {
-            string posfixa = "";
-
-            return posfixa;
         }
 
         // MÉTODO QUE RESOLVE A OPERAÇÃO, DEFINIDA PELO SINAL, ENTRE OS OPERANDOS
