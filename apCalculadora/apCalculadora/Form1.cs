@@ -5,7 +5,7 @@ namespace apCalculadora
 {
     public partial class frmCalculadora : Form
     {
-        public static readonly char[] sinais = { '(', '√', '^', '/', '*', '-', '+', ')' }; // lista de todos os operadores
+        public static char[] sinais = { '(', '√', '^', '/', '*', '-', '+', ')' }; // lista de todos os operadores
         public static readonly char[] numeros = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',' }; // lista dos números e a vírgula para números decimais
         public static readonly char[] letras = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }; // lista de letras
 
@@ -40,7 +40,7 @@ namespace apCalculadora
                 txtVisor.Text += "^";
             else
             {
-                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length-1]) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
                     txtVisor.Text += "^";
             }
 
@@ -74,7 +74,7 @@ namespace apCalculadora
         // BOTÃO "-"
         private void btnSubtracao_Click(object sender, EventArgs e)
         {
-            if (txtVisor.Text.EndsWith(")"))
+            if (txtVisor.Text.EndsWith(")") || txtVisor.Text.EndsWith("("))
                 txtVisor.Text += "-";
             else
             {
@@ -82,8 +82,6 @@ namespace apCalculadora
                 {
                     if (txtVisor.Text != "0") // textbox não vazio
                         txtVisor.Text += "-";
-                    else
-                        txtVisor.Text = "-";
                 }
             }
         }
@@ -180,12 +178,6 @@ namespace apCalculadora
                         if (soValores[posSoValores] != "")
                         {
                             vetValores[posVet] = double.Parse(soValores[posSoValores]);
-
-                            if (expressao.StartsWith("-"))
-                            {
-                                vetValores[posVet] *= -1;
-                                expressao = expressao.Remove(0, 1);
-                            }
                             posVet++;
                         }
                     }
@@ -197,12 +189,12 @@ namespace apCalculadora
                 {
                     if (posExpressao == expressao.Length)
                     {
-                        if (Convert.ToChar(expressao.Substring(posExpressao - 1, 1)) != ')')
+                        if (expressao[posExpressao - 1] != ')')
                             expLetras += letras[posLetra];
 
                         break;
                     }
-                    while (IsNumero(Convert.ToChar(expressao.Substring(posExpressao, 1))))
+                    while (IsNumero(expressao[posExpressao]))
                     {
                         if (posExpressao == expressao.Length - 1)
                         {
@@ -214,12 +206,29 @@ namespace apCalculadora
                     }
                     if (posExpressao != expressao.Length)
                     {
-                        while (IsOperador(Convert.ToChar(expressao.Substring(posExpressao, 1))))
+                        while (IsOperador(expressao[posExpressao]))
                         {
-                            if (Convert.ToChar(expressao.Substring(posExpressao, 1)) != '(' && Convert.ToChar(expressao.Substring(posExpressao, 1)) != '√' && Convert.ToChar(expressao.Substring(posExpressao - 1, 1)) != ')')
+                            if (expressao[posExpressao] != '(' && expressao[posExpressao] != '√' && expressao[posExpressao - 1] != ')')
                             {
-                                expLetras += letras[posLetra];
-                                posLetra++;
+                                if (expressao[posExpressao] == '-')
+                                {
+                                    if (expressao[posExpressao - 1] != '(')
+                                    {
+                                        expLetras += letras[posLetra];
+                                        posLetra++;
+                                    }
+                                    else
+                                    {
+                                        vetValores[posLetra] *= -1;
+                                        posExpressao++;
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    expLetras += letras[posLetra];
+                                    posLetra++;
+                                }
                             }
                             expLetras += expressao.Substring(posExpressao, 1);
                             posExpressao++;
