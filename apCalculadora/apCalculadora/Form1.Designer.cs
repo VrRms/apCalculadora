@@ -699,7 +699,6 @@
             this.Name = "frmCalculadora";
             this.Text = "Calculadora";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmCalculadora_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmCalculadora_KeyUp);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);

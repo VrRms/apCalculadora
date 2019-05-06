@@ -42,7 +42,7 @@ namespace apCalculadora
                 txtVisor.Text += "^";
             else
             {
-                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0") // verifica se o sinal pode ser aplicado
                     txtVisor.Text += "^";
             }
 
@@ -56,7 +56,7 @@ namespace apCalculadora
                 txtVisor.Text += "/";
             else
             {
-                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0") // verifica se o sinal pode ser aplicado
                     txtVisor.Text += "/";
             }
         }
@@ -68,7 +68,7 @@ namespace apCalculadora
                 txtVisor.Text += "*";
             else
             {
-                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0") // verifica se o sinal pode ser aplicado
                     txtVisor.Text += "*";
             }
         }
@@ -80,7 +80,7 @@ namespace apCalculadora
                 txtVisor.Text += "-";
             else
             {
-                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]))
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1])) // verifica se o sinal pode ser aplicado
                 {
                     if (txtVisor.Text != "0") // textbox não vazio
                         txtVisor.Text += "-";
@@ -95,7 +95,7 @@ namespace apCalculadora
                 txtVisor.Text += "+";
             else
             {
-                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0") // verifica se o sinal pode ser aplicado
                     txtVisor.Text += "+";
             }
         }
@@ -107,7 +107,7 @@ namespace apCalculadora
                 txtVisor.Text = "√";
             else
             {
-                if (IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && !txtVisor.Text.EndsWith(")"))
+                if (IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && !txtVisor.Text.EndsWith(")")) // verifica se o sinal pode ser aplicado
                     txtVisor.Text += "√";
             }
             btnIgual.Select();
@@ -118,7 +118,7 @@ namespace apCalculadora
         {
             if (!txtVisor.Text.EndsWith(")") && !txtVisor.Text.EndsWith(","))
             {
-                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]))
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1])) // verifica se o ponto pode ser aplicado
                     txtVisor.Text += ",";
                 else
                     txtVisor.Text = txtVisor.Text + "0,";
@@ -132,7 +132,7 @@ namespace apCalculadora
                 txtVisor.Text += ")";
             else
             {
-                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
+                if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0") // verifica se o sinal pode ser aplicado
                     txtVisor.Text += ")";
             }
             btnIgual.Select();
@@ -146,7 +146,7 @@ namespace apCalculadora
             else
             {
                 if (txtVisor.Text.Substring(txtVisor.Text.Length - 1) != ")")
-                    if (IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]))
+                    if (IsOperador(txtVisor.Text[txtVisor.Text.Length - 1])) // verifica se o sinal pode ser aplicado
                         txtVisor.Text += "(";
             }
             btnIgual.Select();
@@ -413,7 +413,7 @@ namespace apCalculadora
         private static bool IsOperador(char s)
         {
             foreach (char sinal in sinais)
-                if (s == sinal)
+                if (s == sinal) // verifica se o caracter é um operador
                     return true;
 
             return false;
@@ -422,16 +422,7 @@ namespace apCalculadora
         private static bool IsNumero(char n)
         {
             foreach (char numero in numeros)
-                if (n == numero)
-                    return true;
-
-            return false;
-        }
-
-        private static bool IsLetra(char l)
-        {
-            foreach (char letra in letras)
-                if (l == letra)
+                if (n == numero) // verifica se o caracter é um número
                     return true;
 
             return false;
@@ -458,6 +449,7 @@ namespace apCalculadora
             }
         }
 
+        // ANALISA A PRECEDÊNCIA ENTRE OPERADORES
         private static bool Precedencia(char sinalTopo, char sinal2)
         {
             int indice1 = Array.FindIndex(sinais, x => x == sinalTopo);
@@ -473,12 +465,6 @@ namespace apCalculadora
                 return true;
 
             return false;
-        }
-
-        private void frmCalculadora_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Enter)
-                btnIgual.PerformClick();
         }
     }
 }
