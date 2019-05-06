@@ -21,6 +21,8 @@ namespace apCalculadora
                 txtVisor.Text = Convert.ToString(((Button)sender).Text);
             else
                 txtVisor.Text += ((Button)sender).Text; // adiciona o valor do botão
+
+            btnIgual.Select();
         }
 
         // BOTÃO "C"
@@ -108,7 +110,7 @@ namespace apCalculadora
                 if (IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && !txtVisor.Text.EndsWith(")"))
                     txtVisor.Text += "√";
             }
-
+            btnIgual.Select();
         }
 
         // BOTÃO "."
@@ -133,6 +135,7 @@ namespace apCalculadora
                 if (!IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]) && txtVisor.Text != "0")
                     txtVisor.Text += ")";
             }
+            btnIgual.Select();
         }
 
         // BOTÃO "("
@@ -146,6 +149,7 @@ namespace apCalculadora
                     if (IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]))
                         txtVisor.Text += "(";
             }
+            btnIgual.Select();
         }
 
         // BOTÃO "←"
@@ -158,6 +162,7 @@ namespace apCalculadora
                 if (txtVisor.Text.Length == 0)
                     txtVisor.Text = Convert.ToString(0);
             }
+            btnIgual.Select();
         }
 
         // BOTÃO "="
@@ -317,7 +322,7 @@ namespace apCalculadora
             }
         }
 
-        // MÉTODO QUE RECONHECE AQS TECLAS DO TECLADO
+        // MÉTODO QUE RECONHECE AS TECLAS DO TECLADO
         private void frmCalculadora_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Shift)
@@ -401,9 +406,6 @@ namespace apCalculadora
                     case 190: // "." do teclado 
                         btnPonto.PerformClick();
                         break;
-                    case 13: // "ENTER" de ambos teclados
-                        btnIgual.PerformClick();
-                        break;
                 }
         }
 
@@ -471,6 +473,12 @@ namespace apCalculadora
                 return true;
 
             return false;
+        }
+
+        private void frmCalculadora_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+                btnIgual.PerformClick();
         }
     }
 }
