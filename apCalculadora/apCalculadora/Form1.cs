@@ -5,7 +5,7 @@ namespace apCalculadora
 {
     public partial class frmCalculadora : Form
     {
-        public static char[] sinais = { '(', '√', '^', '/', '*', '-', '+', ')' }; // lista de todos os operadores
+        public static readonly char[] sinais = { '(', '√', '^', '/', '*', '-', '+', ')' }; // lista de todos os operadores
         public static readonly char[] numeros = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',' }; // lista dos números e a vírgula para números decimais
         public static readonly char[] letras = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }; // lista de letras
 
@@ -170,27 +170,26 @@ namespace apCalculadora
         {
             if (txtVisor.Text != "0")  // textbox não vazio
             {
-                string expressao = txtVisor.Text;
+                string expressao = txtVisor.Text; // expressão digitada
 
                 //////////////// ADICIONA OS VALORES NUMÉRICOS A UM VETOR //////////////////////////////
-                double[] vetValores = new double[26];
-                string[] soValores = expressao.Split(sinais);
 
-                for (int posVet = 0, posSoValores = 0; posSoValores < soValores.Length; posSoValores++)
+                double[] vetValores = new double[26]; // vetor de valores de máximo 26, por causa das letras do alfabeto
+                string[] soValores = expressao.Split(sinais); // separa a expressão pelos operadores para obter somente os valores
+
+                for (int posVet = 0, posSoValores = 0; posSoValores < soValores.Length; posSoValores++) // posVet e posSoValores são locais
                 {
-                    if (posSoValores < soValores.Length)
+                    if (soValores[posSoValores] != "") 
                     {
-                        if (soValores[posSoValores] != "")
-                        {
-                            vetValores[posVet] = double.Parse(soValores[posSoValores]);
-                            posVet++;
-                        }
+                        vetValores[posVet] = double.Parse(soValores[posSoValores]); // adiciona o valor no vetor
+                        posVet++;
                     }
                 }
 
                 ///////////////// TRANSFORMA OS VALORES PARA LETRAS /////////////////////////////////////////////
-                string expLetras = "";
-                for (int posLetra = 0, posExpressao = 0; posExpressao <= expressao.Length;) // posLetra e posExpressao são locais
+
+                string expLetras = ""; // expressão com letras no lugar dos números
+                for (int posLetra = 0, posExpressao = 0; posExpressao <= expressao.Length; ) // posLetra e posExpressao são locais
                 {
                     if (posExpressao == expressao.Length)
                     {
@@ -199,46 +198,45 @@ namespace apCalculadora
 
                         break;
                     }
-                    while (IsNumero(expressao[posExpressao]))
+                    while (!IsOperador(expressao[posExpressao])) // IsOperador é mais rápido que IsNumero
                     {
                         if (posExpressao == expressao.Length - 1)
                         {
                             posExpressao++;
                             break;
                         }
-
                         posExpressao++;
                     }
                     if (posExpressao != expressao.Length)
                     {
-                        while (IsOperador(expressao[posExpressao]))
+                        while (IsOperador(expressao[posExpressao])) // enquanto é operador
                         {
                             if (expressao[posExpressao] != '(' && expressao[posExpressao] != '√' && expressao[posExpressao - 1] != ')')
                             {
-                                if (expressao[posExpressao] == '-')
+                                if (expressao[posExpressao] == '-') // o operador "-" é unário quando entre parênteses
                                 {
                                     if (expressao[posExpressao - 1] != '(')
-                                    {
-                                        expLetras += letras[posLetra];
+                                    {                                  // o operador "-" não é unário
+                                        expLetras += letras[posLetra]; // adiciona a letra equivalente
                                         posLetra++;
                                     }
-                                    else
+                                    else // o operador "-" é unário
                                     {
-                                        vetValores[posLetra] *= -1;
+                                        vetValores[posLetra] *= -1; // a valor foi separado pelos operadores, então é preciso negativar os números que eram negativos
                                         posExpressao++;
                                         break;
                                     }
                                 }
-                                else
+                                else // todo operador necessita de 2 operandos, menos os identificados no "if" após o "while"
                                 {
-                                    expLetras += letras[posLetra];
+                                    expLetras += letras[posLetra]; // adiciona a letra equivalente
                                     posLetra++;
                                 }
                             }
-                            expLetras += expressao.Substring(posExpressao, 1);
+                            expLetras += expressao.Substring(posExpressao, 1); // adiciona o operador
                             posExpressao++;
 
-                            if (posExpressao == expressao.Length)
+                            if (posExpressao == expressao.Length) // fim da expressão
                                 break;
                         }
                     }
@@ -246,55 +244,59 @@ namespace apCalculadora
 
                 ////////////////// INFIXA PARA PÓS-FIXA //////////////////////////////////////////////////////////
 
-                PilhaLista<char> pilha = new PilhaLista<char>();
+                PilhaLista<char> pilha = new PilhaLista<char>(); // para empilhar os operadores
+                string expressaoPosfixa = ""; // expressão pósfixa com letras
 
-                string expressaoPosfixa = "";
                 for (int posExp = 0; posExp < expLetras.Length; posExp++)
                 {
-                    char c = Convert.ToChar(expLetras.Substring(posExp, 1));
-                    if (!IsOperador(c))
-                        expressaoPosfixa += c;
+                    char c = Convert.ToChar(expLetras.Substring(posExp, 1)); // caracter lido
+
+                    if (!IsOperador(c))        // se não é operador, ou seja, é letra (valor)
+                        expressaoPosfixa += c; // adiciona na expressão
                     else
                     {
                         if (pilha.EstaVazia() && c != ')')
-                            pilha.Empilhar(c);
+                            pilha.Empilhar(c); // empilha o operador
                         else
                         {
-                            if (c == ')')
+                            if (c == ')') // se achamos um ")", existem operações prioritárias
                             {
-                                while (pilha.OTopo() != '(')
-                                    expressaoPosfixa += pilha.Desempilhar();
+                                while (pilha.OTopo() != '(')                 // enquanto não acharmos o correspondente
+                                    expressaoPosfixa += pilha.Desempilhar(); // desempilha os operadores priorizados
 
-                                pilha.Desempilhar();
+                                pilha.Desempilhar(); // desempilha o próprio "("
                             }
                             else
                             {
-                                while (Precedencia(pilha.OTopo(), c) && pilha.OTopo() != '(')
+                                while (Precedencia(pilha.OTopo(), c) && pilha.OTopo() != '(') 
                                 {
-                                    expressaoPosfixa += pilha.Desempilhar();
+                                    expressaoPosfixa += pilha.Desempilhar();  // o topo tem precedência, então devem vir primeiro (desempilhando)
                                     if (pilha.EstaVazia())
                                         break;
                                 }
-                                pilha.Empilhar(c);
+                                pilha.Empilhar(c); // empilha o novo caracter lido
                             }
                         }
                     }
                 }
-                while (!pilha.EstaVazia())
-                    expressaoPosfixa += pilha.Desempilhar();
+                while (!pilha.EstaVazia()) // acabou a expressão, então se sobrou operadores
+                    expressaoPosfixa += pilha.Desempilhar(); // desempilhamos, já que está na ordem certa
 
                 /////////////// CALCULAR EXPRESSÃO POSFIXA //////////////////////////////////////////
-                double resultado = 0;
-                int posExpPosFixa = 0;
-                PilhaLista<double> pilhaValores = new PilhaLista<double>();
+
+                double resultado = 0;  // resultado do cálculo pófixo
+                int posExpPosFixa = 0; // posição na expressão pósfixa
+                PilhaLista<double> pilhaValores = new PilhaLista<double>(); // para empilhar os valores
+
                 try
                 {
                     while (posExpPosFixa < expressaoPosfixa.Length)
                     {
-                        char c = Convert.ToChar(expressaoPosfixa.Substring(posExpPosFixa, 1));
-                        if (!IsOperador(c))
+                        char c = Convert.ToChar(expressaoPosfixa.Substring(posExpPosFixa, 1)); // caracter lido
+
+                        if (!IsOperador(c)) // não é operador
                         {
-                            pilhaValores.Empilhar(vetValores[c - 'A']);
+                            pilhaValores.Empilhar(vetValores[c - 'A']); // empilha o valor double
 
                             if (expressaoPosfixa.Length == 1)
                                 resultado = vetValores[c - 'A'];
@@ -302,22 +304,22 @@ namespace apCalculadora
                         else
                         {
                             if (c == '√')
-                                resultado = ResolverOperacao(0, pilhaValores.Desempilhar(), c);
+                                resultado = ResolverOperacao(0, pilhaValores.Desempilhar(), c); // "√" é operador unário
                             else
-                                resultado = ResolverOperacao(pilhaValores.Desempilhar(), pilhaValores.Desempilhar(), c);
+                                resultado = ResolverOperacao(pilhaValores.Desempilhar(), pilhaValores.Desempilhar(), c); // resolve a operação
 
-                            pilhaValores.Empilhar(resultado);
+                            pilhaValores.Empilhar(resultado); // // empilha o resultado
                         }
                         posExpPosFixa++;
                     }
-                    txtResultado.Text = resultado + "";
-                    lbSequencias.Text = "Posfixa: " + expressaoPosfixa + "\nInfixa : " + expLetras;
+                    txtResultado.Text = resultado + ""; // mostra o resultado
+                    lbSequencias.Text = "Posfixa: " + expressaoPosfixa + "\nInfixa : " + expLetras; // apresenta a pósfixa e infixa
                 }
                 catch (Exception erro)
                 {
                     MessageBox.Show("Expressão incorreta!", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtResultado.Text = "";
-                    lbSequencias.Text = "Posfixa: \nInfixa : ";
+                    txtResultado.Text = ""; // apaga
+                    lbSequencias.Text = "Posfixa: \nInfixa : "; // reinicializa
                 }
             }
         }
@@ -419,6 +421,7 @@ namespace apCalculadora
             return false;
         }
 
+        /*
         private static bool IsNumero(char n)
         {
             foreach (char numero in numeros)
@@ -427,6 +430,16 @@ namespace apCalculadora
 
             return false;
         }
+
+        private static bool IsLetra(char l)
+        {
+            foreach (char letra in letras)
+                if (l == letra) // verifica se o caracter é uma letra
+                    return true;
+
+            return false;
+        }
+        */
 
         // MÉTODO QUE RESOLVE A OPERAÇÃO, DEFINIDA PELO SINAL, ENTRE OS OPERANDOS
         private static double ResolverOperacao(double operando2, double operando1, char sinal)
@@ -452,17 +465,17 @@ namespace apCalculadora
         // ANALISA A PRECEDÊNCIA ENTRE OPERADORES
         private static bool Precedencia(char sinalTopo, char sinal2)
         {
-            int indice1 = Array.FindIndex(sinais, x => x == sinalTopo);
-            int indice2 = Array.FindIndex(sinais, y => y == sinal2);
+            int indice1 = Array.FindIndex(sinais, x => x == sinalTopo); // encontra o indice do sinal do topo no vetor sinais
+            int indice2 = Array.FindIndex(sinais, y => y == sinal2);   // encontra o indice do operador atual no vetor sinais
 
             if (indice1 < 0 || indice2 < 0)
                 throw new Exception("Sinal inexistente");
 
             if (indice1 == indice2)
-                return true;
+                return true; // se indices iguais, o topo tem preferência
 
             if (indice1 < indice2)
-                return true;
+                return true; // se o indice do topo é menor que o outro, ele que tem preferência
 
             return false;
         }
