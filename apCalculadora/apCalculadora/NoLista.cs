@@ -1,4 +1,10 @@
 ﻿using System;
+
+/// <summary>
+/// NOMES: MATEUS DE PADUA VICENTE E VITOR RAMOS
+/// RAs  : 18186 E 18171
+/// </summary>
+
 public class NoLista<Dado> where Dado : IComparable<Dado>
 {
     Dado info;

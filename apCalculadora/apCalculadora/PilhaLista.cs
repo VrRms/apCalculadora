@@ -1,5 +1,10 @@
 ﻿using System;
 
+/// <summary>
+/// NOMES: MATEUS DE PADUA VICENTE E VITOR RAMOS
+/// RAs  : 18186 E 18171
+/// </summary>
+
 public class PilhaLista<Dado> : IStack<Dado> where Dado : IComparable<Dado>
 {
     private NoLista<Dado> topo;
