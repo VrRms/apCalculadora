@@ -14,11 +14,24 @@ namespace apCalculadora
         private static readonly char[] numeros = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',' }; // lista dos números e a vírgula para números decimais
         private static readonly char[] letras = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' }; // lista de letras
 
-        static double[] vetValores = new double[26]; // vetor de valores de máximo 26, por causa das letras do alfabeto
+        static double[] vetValores; // vetor de valores
 
         public frmCalculadora()
         {
             InitializeComponent();
+        }
+
+        private void frmCalculadora_Load(object sender, EventArgs e)
+        {
+            // mensagem para facilitar o uso do usuário
+            MessageBox.Show("Bem-vindo usuário! \nPara melhor utilizar a calculadora, veja algumas regras: \n" +
+                            "\n1 - Números negativos devem ser escritos entre parênteses. Ex.: (-2);" +
+                            "\n2 - Expressões dentro de qualquer operador devem estar entre parênteses, assim como as prioritárias. Ex.: √(√(10+6)) ou 10/(5*(1+1));" +
+                            "\n3 - Evite expressões muito longas. Caso não esteja vendo completamente sua expressão, clique no visor e acompanhe até o fim;" +
+                            "\n4 - Divisão por 0 (zero) é indeterminado;" +
+                            "\n\nQualquer erro será avisado. \nAgora, vamos calcular!" +
+                            "\n\n\n\n© Esse projeto foi desenvolvido por Vitor Ramos e Mateus Vicente",
+                            "Antes de começar...", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // BOTÕES NUMÉRICOS
@@ -179,6 +192,10 @@ namespace apCalculadora
             {
                 try
                 {
+                    if (!txtVisor.Text.EndsWith(")") && IsOperador(txtVisor.Text[txtVisor.Text.Length - 1]))
+                        throw new Exception("Expressão incorreta!"); // a expressão não pode terminar com um operador
+
+                    vetValores = new double[26]; // vetor de valores de máximo 26, por causa das letras do alfabeto
                     string expressao = txtVisor.Text; // expressão digitada
                     string[] soValores = expressao.Split(sinais); // separa a expressão pelos operadores para obter somente os valores
 
@@ -205,14 +222,18 @@ namespace apCalculadora
                 }
                 catch (Exception erro)
                 {
-                    MessageBox.Show("Expressão incorreta!", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (erro.Message == "Divisão por zero!")
+                        MessageBox.Show("Divisão por 0 (zero) é indeterminado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else
+                        MessageBox.Show("Expressão incorreta!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     txtResultado.Text = ""; // apaga
                     lbSequencias.Text = "Posfixa: \nInfixa : "; // reinicializa
                 }
             }
         }
 
-        ////////////////////////////////// MÉTODOS AUXILIARES ///////////////////////////////////////////
+        //////////////////////////////////////////// MÉTODOS AUXILIARES ////////////////////////////////////////////
 
         // MÉTODO PARA CONVERTER A EXPRESSÃO NUMÉRICA PARA LETRAS
         private static void ValoresParaLetras(string expOriginal, ref string expLetras)
@@ -357,13 +378,17 @@ namespace apCalculadora
 
                 case '*': return operando1 * operando2; // calcula multiplicação
 
-                case '/': return operando1 / operando2; // calcula divisão
+                case '/':
+                    if (operando2 == 0)
+                        throw new Exception("Divisão por zero!");
+                    else
+                        return operando1 / operando2; // calcula divisão
 
                 case '^': return Math.Pow(operando1, operando2); // calcula potenciação
 
                 case '√': return Math.Sqrt(operando1); // calcula raiz quadrada de apenas um operando
 
-                default: return 0; // retorno padrão
+                default: throw new Exception("Sinal inexistente!"); // retorno padrão
             }
         }
 
